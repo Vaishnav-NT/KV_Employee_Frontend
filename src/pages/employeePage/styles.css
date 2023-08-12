@@ -1,0 +1,23 @@
+.home-div {
+  width: 100%;
+  height: 100%;
+  background-color: #fafafa;
+}
+
+/* .main-body {
+  display: flex;
+  height: calc(100% - 77px);
+} */
+/* 
+.right-div {
+  height: calc(100% - 77px);
+  width: 100%;
+} */
+
+.table {
+  padding: 20px;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

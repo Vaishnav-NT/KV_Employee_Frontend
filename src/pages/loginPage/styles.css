@@ -1,4 +1,4 @@
-.page {
+.container {
   display: flex;
   height: 100vh;
   width: 100vw;
@@ -6,10 +6,10 @@
 
 .hero-image-div {
   width: 50%;
-  background-color: #e6f7fd;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #e6f7fd;
 }
 
 .hero-image-div img {

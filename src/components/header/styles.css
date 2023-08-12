@@ -1,0 +1,19 @@
+.header-div {
+  width: 100% - 20px;
+  height: 77px;
+  background-color: white;
+}
+
+.logo-div {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  background-color: #fafafa;
+}
+
+img {
+  width: 208px;
+  height: 45px;
+}

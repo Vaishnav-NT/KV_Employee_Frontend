@@ -1,0 +1,10 @@
+.main-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 115px;
+  width: 200px;
+  border-radius: 10px;
+  opacity: 1;
+}

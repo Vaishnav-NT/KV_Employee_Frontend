@@ -1,8 +1,8 @@
+import './styles.css';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
-import { useNavigate } from 'react-router-dom';
-import './styles.css';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -24,7 +24,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className='page'>
+    <div className='container'>
       <div className='hero-image-div'>
         <img src='assets/img/banner.png' />
       </div>

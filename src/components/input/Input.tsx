@@ -3,7 +3,7 @@ import './styles.css';
 
 type InputProsType = {
   value: string;
-  type: 'text' | 'password';
+  type: string;
   onChange: (e: any) => void;
   label: string;
 };
@@ -12,13 +12,7 @@ const Input: React.FC<InputProsType> = ({ value, onChange, label, type }) => {
   return (
     <div className='input-div'>
       <label>{label}</label>
-      <input
-        type={type}
-        placeholder={label}
-        onChange={onChange}
-        value={value}
-        className='input-field'
-      ></input>
+      <input type={type} placeholder={label} onChange={onChange} value={value}></input>
     </div>
   );
 };

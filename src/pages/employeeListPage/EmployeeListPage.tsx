@@ -7,7 +7,7 @@ import TableHeader from '../../components/TableHeader/TableHeader';
 import TableRow from '../../components/TableRow/TableRow';
 import employees from '../../employees';
 
-const EmployeePage = () => {
+const EmployeeListPage = () => {
   const navigate = useNavigate();
 
   const handleClickOnTableRow = (id: number) => {
@@ -21,9 +21,9 @@ const EmployeePage = () => {
   return (
     <div className='home-div'>
       <Header />
-      <NavBar />
       <div className='main-body'>
-        <div className='right-div'>
+        <NavBar />
+        <div className='content-div'>
           <SubHeader
             headerText='Employee List'
             actionButtonText='Create Employee'
@@ -37,7 +37,9 @@ const EmployeePage = () => {
                 <TableRow
                   employee={employee}
                   key={employee.id}
-                  onClick={() => handleClickOnTableRow(employee.id)}
+                  handleRowClick={() => handleClickOnTableRow(employee.id)}
+                  handleEdit={() => {}}
+                  handleDelete={() => {}}
                 />
               ))}
             </table>
@@ -48,4 +50,4 @@ const EmployeePage = () => {
   );
 };
 
-export default EmployeePage;
+export default EmployeeListPage;

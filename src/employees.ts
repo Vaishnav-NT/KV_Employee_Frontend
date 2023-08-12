@@ -5,7 +5,6 @@ const employees = [
     joiningDate: '11/02/2012',
     role: 'admin',
     status: 'Active',
-    username: 'SRTHY',
     experience: 4
   },
   {
@@ -14,7 +13,6 @@ const employees = [
     joiningDate: '11/02/2012',
     role: 'admin',
     status: 'Inactive',
-    username: 'JT',
     experience: 2
   }
 ];

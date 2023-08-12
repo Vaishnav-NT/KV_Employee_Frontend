@@ -4,19 +4,20 @@
   background-color: #fafafa;
 }
 
-/* .main-body {
+.main-body {
   display: flex;
-  height: calc(100% - 77px);
-} */
-/* 
-.right-div {
-  height: calc(100% - 77px);
+}
+
+.content-div {
+  margin: 8px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
   width: 100%;
-} */
+}
 
 .table {
-  padding: 20px;
-  margin: 20px;
+  margin-top: 24px;
   display: flex;
   flex-direction: column;
   width: 100%;

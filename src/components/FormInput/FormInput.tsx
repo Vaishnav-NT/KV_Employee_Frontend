@@ -5,16 +5,25 @@ type FormInputProsType = {
   value: string;
   type: string;
   onChange: (e: any) => void;
-  label: string;
+  label: string | null;
+  placeholder?: string;
+  showLabel?: boolean;
 };
 
-const FormInput: React.FC<FormInputProsType> = ({ value, onChange, label, type }) => {
+const FormInput: React.FC<FormInputProsType> = ({
+  value,
+  onChange,
+  type,
+  label,
+  placeholder = label,
+  showLabel = true
+}) => {
   return (
     <div className='form-input-div'>
-      <label>{label}</label>
+      {showLabel && <label>{label}</label>}
       <input
         type={type}
-        placeholder={label}
+        placeholder={placeholder}
         onChange={onChange}
         value={value}
         className='form-input-field'

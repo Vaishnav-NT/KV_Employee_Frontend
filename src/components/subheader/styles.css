@@ -23,6 +23,7 @@ h3 {
   background: #eaf9ff 0% 0% no-repeat padding-box;
   border-radius: 50px;
   opacity: 1;
+  cursor: pointer;
 }
 
 .action-button-icon {

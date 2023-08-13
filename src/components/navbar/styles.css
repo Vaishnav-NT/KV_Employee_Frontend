@@ -17,6 +17,7 @@
   opacity: 1;
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .icon-div {

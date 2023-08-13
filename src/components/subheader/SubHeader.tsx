@@ -18,9 +18,9 @@ const SubHeader: React.FC<SubHeaderProsType> = ({
     <div className='subheader-div'>
       <h3>{headerText}</h3>
       {actionButtonText && (
-        <div className='action-button'>
+        <div className='action-button' onClick={onClick}>
           <div className='action-button-icon'>
-            <img className='create-icon' src={actionButtonlogo} alt='add icon' onClick={onClick} />
+            <img className='create-icon' src={actionButtonlogo} alt='add icon' />
           </div>
           <div className='action-button-text'>{actionButtonText}</div>
         </div>

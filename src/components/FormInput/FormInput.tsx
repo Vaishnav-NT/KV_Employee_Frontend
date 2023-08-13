@@ -8,6 +8,7 @@ type FormInputProsType = {
   label: string | null;
   placeholder?: string;
   showLabel?: boolean;
+  readonly?: boolean;
 };
 
 const FormInput: React.FC<FormInputProsType> = ({
@@ -16,7 +17,8 @@ const FormInput: React.FC<FormInputProsType> = ({
   type,
   label,
   placeholder = label,
-  showLabel = true
+  showLabel = true,
+  readonly
 }) => {
   return (
     <div className='form-input-div'>
@@ -27,6 +29,7 @@ const FormInput: React.FC<FormInputProsType> = ({
         onChange={onChange}
         value={value}
         className='form-input-field'
+        readOnly={readonly}
       ></input>
     </div>
   );

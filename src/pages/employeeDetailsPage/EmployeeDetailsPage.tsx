@@ -1,5 +1,5 @@
 import './styles.css';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import employees from '../../employees';
 import NavBar from '../../components/navbar/NavBar';
 import Header from '../../components/header/Header';
@@ -10,6 +10,11 @@ import DetailsCard from '../../components/DetailsCard/DetailsCard';
 const EmployeeDetailsPage = () => {
   const { id } = useParams();
   const employee = employees.find((employee) => employee.id === parseInt(id));
+  const navigate = useNavigate();
+  const handleEdit = (id: number) => {
+    // not work
+    navigate(`../employees/edit/${id}`);
+  };
 
   return (
     <div className='home-div'>
@@ -21,7 +26,9 @@ const EmployeeDetailsPage = () => {
             headerText='Employee Details'
             actionButtonText='Edit Employee'
             actionButtonlogo='assets/icons/edit.svg'
-            onClick={() => {}}
+            onClick={() => {
+              handleEdit(employee.id);
+            }}
           />
 
           <div className='detailsCard'>

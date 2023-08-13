@@ -1,23 +1,26 @@
 import './styles.css';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import NavBar from '../../components/navbar/NavBar';
 import Header from '../../components/header/Header';
 import SubHeader from '../../components/subheader/SubHeader';
 import FormInput from '../../components/FormInput/FormInput';
 import FormSelect from '../../components/FormSelect/FormSelect';
 import Button from '../../components/button/Button';
+import employees from '../../employees';
 
-const CreateEmployeePage = () => {
+const EditEmployeePage = () => {
   const deptOptions = ['Frontend', 'Backend', 'QA'];
   const rolesOptions = ['Admin', 'User'];
   const statusOptions = ['Active', 'Inactive', 'Probation'];
+  const { id } = useParams();
+  const employee = employees.find((employee) => employee.id === parseInt(id));
   const emptyEmployeeObject = {
-    name: '',
-    joiningDate: '',
-    role: '',
-    status: '',
-    experience: null,
+    name: employee.name,
+    joiningDate: employee.joiningDate,
+    role: employee.role,
+    status: employee.status,
+    experience: employee.experience,
     department: '',
     address: {
       house: '',
@@ -29,10 +32,9 @@ const CreateEmployeePage = () => {
 
   const [employeeState, setEmployeeState] = useState(emptyEmployeeObject);
 
-  const handleCreate = () => {
-    console.log('Employee created\n', employeeState);
+  const handleSave = () => {
+    console.log('Employee saved\n', employeeState);
     // add check
-    setEmployeeState(emptyEmployeeObject);
   };
 
   const handleCancel = () => {
@@ -45,7 +47,7 @@ const CreateEmployeePage = () => {
       <div className='main-body'>
         <NavBar />
         <div className='content-div'>
-          <SubHeader headerText='Create Employee' />
+          <SubHeader headerText='Edit Employee' />
           <div className='form-card'>
             <div className='row'>
               <div className='row-item'>
@@ -65,12 +67,12 @@ const CreateEmployeePage = () => {
                     setEmployeeState((prev) => ({ ...prev, joiningDate: e.target.value }));
                   }}
                   label='Joining Date'
-                  type='date'
+                  type='string'
                 />
               </div>
               <div className='row-item'>
                 <FormInput
-                  value={employeeState.experience}
+                  value={employeeState.experience as unknown as string}
                   onChange={(e: any) => {
                     setEmployeeState((prev) => ({ ...prev, experience: e.target.value }));
                   }}
@@ -108,52 +110,67 @@ const CreateEmployeePage = () => {
                 />
               </div>
             </div>
-            <div className='column'>
-              <div className='column-item1'>
+            <div className='row'>
+              <div className='row-item'>
+                <div className='column'>
+                  <div className='column-item'>
+                    <FormInput
+                      value={employeeState.address.house}
+                      onChange={(e: any) => {
+                        setEmployeeState((prev) => ({
+                          ...prev,
+                          address: { ...prev.address, house: e.target.value }
+                        }));
+                      }}
+                      label='Address'
+                      placeholder='Flat No / House No'
+                      type='text'
+                    />
+                  </div>
+                  <div className='column-item'>
+                    <FormInput
+                      value={employeeState.address.line1}
+                      onChange={(e: any) => {
+                        setEmployeeState((prev) => ({
+                          ...prev,
+                          address: { ...prev.address, line1: e.target.value }
+                        }));
+                      }}
+                      label='Address Line 1'
+                      type='text'
+                      showLabel={false}
+                    />
+                  </div>
+                  <div className='column-item'>
+                    <FormInput
+                      value={employeeState.address.line2}
+                      onChange={(e: any) => {
+                        setEmployeeState((prev) => ({
+                          ...prev,
+                          address: { ...prev.address, line2: e.target.value }
+                        }));
+                      }}
+                      label='Address Line 2'
+                      type='text'
+                      showLabel={false}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className='row-item inactive'>
                 <FormInput
-                  value={employeeState.address.house}
-                  onChange={(e: any) => {
-                    setEmployeeState((prev) => ({
-                      ...prev,
-                      address: { ...prev.address, house: e.target.value }
-                    }));
-                  }}
-                  label='Address'
-                  placeholder='Flat No / House No'
-                  type='text'
+                  value={'E00' + employee.id}
+                  label='Employee ID'
+                  type='string'
+                  onChange={() => {}}
+                  readonly={true}
                 />
               </div>
-              <div className='column-item1'>
-                <FormInput
-                  value={employeeState.address.line1}
-                  onChange={(e: any) => {
-                    setEmployeeState((prev) => ({
-                      ...prev,
-                      address: { ...prev.address, line1: e.target.value }
-                    }));
-                  }}
-                  label='Address Line 1'
-                  type='text'
-                  showLabel={false}
-                />
-              </div>
-              <div className='column-item1'>
-                <FormInput
-                  value={employeeState.address.line2}
-                  onChange={(e: any) => {
-                    setEmployeeState((prev) => ({
-                      ...prev,
-                      address: { ...prev.address, line2: e.target.value }
-                    }));
-                  }}
-                  label='Address Line 2'
-                  type='text'
-                  showLabel={false}
-                />
-              </div>
-              <div className='form-buttons1'>
+            </div>
+            <div className='row'>
+              <div className='form-buttons'>
                 <div className='form-button'>
-                  <Button type='primary' label='Create' onClick={handleCreate} />
+                  <Button type='primary' label='Save' onClick={handleSave} />
                 </div>
                 <div className='form-button'>
                   <Button type='secondary' label='Cancel' onClick={handleCancel} />
@@ -167,4 +184,4 @@ const CreateEmployeePage = () => {
   );
 };
 
-export default CreateEmployeePage;
+export default EditEmployeePage;

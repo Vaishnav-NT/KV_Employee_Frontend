@@ -18,6 +18,10 @@ const EmployeeListPage = () => {
     navigate(`/employees/create`);
   };
 
+  const handleEdit = (id: number) => {
+    navigate(`/employees/edit/${id}`);
+  };
+
   return (
     <div className='home-div'>
       <Header />
@@ -38,7 +42,7 @@ const EmployeeListPage = () => {
                   employee={employee}
                   key={employee.id}
                   handleRowClick={() => handleClickOnTableRow(employee.id)}
-                  handleEdit={() => {}}
+                  handleEdit={() => handleEdit(employee.id)}
                   handleDelete={() => {}}
                 />
               ))}

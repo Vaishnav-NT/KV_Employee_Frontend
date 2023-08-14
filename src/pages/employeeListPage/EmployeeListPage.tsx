@@ -13,8 +13,6 @@ const EmployeeListPage = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-
-  // const handleDelete = (id: number) => {
   //   dispatch({
   //     type: 'EMPLOYEE.DELETE',
   //     payload: {

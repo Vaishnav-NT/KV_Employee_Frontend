@@ -113,6 +113,7 @@ const CreateEmployeePage = () => {
             <div className='row'>
               <div className='row-item'>
                 <FormSelect
+                  value={employeeState.department}
                   label='Department'
                   options={deptOptions}
                   onChange={(e: any) => {
@@ -122,6 +123,7 @@ const CreateEmployeePage = () => {
               </div>
               <div className='row-item'>
                 <FormSelect
+                  value={employeeState.role}
                   label='Roles'
                   options={rolesOptions}
                   onChange={(e: any) => {
@@ -131,6 +133,7 @@ const CreateEmployeePage = () => {
               </div>
               <div className='row-item'>
                 <FormSelect
+                  value={employeeState.status}
                   label='Status'
                   options={statusOptions}
                   onChange={(e: any) => {

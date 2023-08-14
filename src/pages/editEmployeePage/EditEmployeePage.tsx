@@ -7,34 +7,51 @@ import SubHeader from '../../components/Subheader/SubHeader';
 import FormInput from '../../components/FormInput/FormInput';
 import FormSelect from '../../components/FormSelect/FormSelect';
 import Button from '../../components/Button/Button';
-import employees from '../../employees';
+import { useDispatch, useSelector } from 'react-redux';
 
 const EditEmployeePage = () => {
   const deptOptions = ['Frontend', 'Backend', 'QA'];
-  const rolesOptions = ['Admin', 'User'];
+  const rolesOptions = ['admin', 'user'];
   const statusOptions = ['Active', 'Inactive', 'Probation'];
   const { id } = useParams();
-  const employee = employees.find((employee) => employee.id === parseInt(id));
-  const emptyEmployeeObject = {
+
+  const employeesData = useSelector((state: any) => {
+    return state.employees;
+  });
+
+  const employee = employeesData.find((employee) => employee.id === parseInt(id));
+
+  const employeeObject = {
+    id: parseInt(id),
     name: employee.name,
     joiningDate: employee.joiningDate,
     role: employee.role,
     status: employee.status,
     experience: employee.experience,
-    department: '',
+    department: employee.department,
     address: {
-      house: '',
-      line1: '',
-      line2: ''
+      house: employee.address.house,
+      line1: employee.address.line1,
+      line2: employee.address.line2
     }
   };
+
   const navigate = useNavigate();
 
-  const [employeeState, setEmployeeState] = useState(emptyEmployeeObject);
+  const [employeeState, setEmployeeState] = useState(employeeObject);
+
+  const dispatch = useDispatch();
 
   const handleSave = () => {
-    console.log('Employee saved\n', employeeState);
-    // add check
+    dispatch({
+      type: 'EMPLOYEE.EDIT',
+      payload: {
+        employee: employeeState,
+        id
+      }
+    });
+    console.log('here');
+    navigate('/employees');
   };
 
   const handleCancel = () => {
@@ -84,6 +101,7 @@ const EditEmployeePage = () => {
             <div className='row'>
               <div className='row-item'>
                 <FormSelect
+                  value={employeeState.department as unknown as string}
                   label='Department'
                   options={deptOptions}
                   onChange={(e: any) => {
@@ -93,6 +111,7 @@ const EditEmployeePage = () => {
               </div>
               <div className='row-item'>
                 <FormSelect
+                  value={employeeState.role as unknown as string}
                   label='Roles'
                   options={rolesOptions}
                   onChange={(e: any) => {
@@ -102,6 +121,7 @@ const EditEmployeePage = () => {
               </div>
               <div className='row-item'>
                 <FormSelect
+                  value={employeeState.status as unknown as string}
                   label='Status'
                   options={statusOptions}
                   onChange={(e: any) => {

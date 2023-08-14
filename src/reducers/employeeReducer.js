@@ -41,6 +41,18 @@ const employeeReducer = (state = initialState, action) => {
       return updatedState;
     }
 
+    case 'EMPLOYEE.EDIT': {
+      console.log(state);
+
+      const index = state.findIndex((emp) => emp.id == action.payload.id);
+
+      console.log('', index);
+
+      const updatedState = state.toSpliced(index, 1, action.payload.employee);
+
+      return updatedState;
+    }
+
     default:
       return state;
   }

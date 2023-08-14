@@ -1,6 +1,7 @@
 import './styles.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import NavBar from '../../components/Navbar/NavBar';
 import Header from '../../components/Header/Header';
 import SubHeader from '../../components/Subheader/SubHeader';
@@ -9,9 +10,11 @@ import FormSelect from '../../components/FormSelect/FormSelect';
 import Button from '../../components/Button/Button';
 
 const CreateEmployeePage = () => {
-  const deptOptions = ['Frontend', 'Backend', 'QA'];
-  const rolesOptions = ['Admin', 'User'];
-  const statusOptions = ['Active', 'Inactive', 'Probation'];
+  const [genID, setGenID] = useState(3);
+  const deptOptions = ['Select', 'Frontend', 'Backend', 'QA'];
+  const rolesOptions = ['Select', 'admin', 'user'];
+  const statusOptions = ['Select', 'Active', 'Inactive', 'Probation'];
+  const employeeDataKeys = ['name', 'id', 'joiningDate', 'experience'];
   const emptyEmployeeObject = {
     name: '',
     joiningDate: '',
@@ -27,12 +30,40 @@ const CreateEmployeePage = () => {
   };
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+
+  const [showError, setShowError] = useState(false);
+
   const [employeeState, setEmployeeState] = useState(emptyEmployeeObject);
 
   const handleCreate = () => {
-    console.log('Employee created\n', employeeState);
-    // add check
+    for (const item in employeeDataKeys) {
+      if (item.toString.length === 0) {
+        setShowError(true);
+
+        return;
+      }
+
+      if (
+        employeeState.department === 'Select' ||
+        employeeState.role === 'Select' ||
+        employeeState.status === 'Select'
+      ) {
+        setShowError(true);
+
+        return;
+      }
+    }
+
+    dispatch({
+      type: 'EMPLOYEE.CREATE',
+      payload: {
+        employee: { id: genID, ...employeeState }
+      }
+    });
     setEmployeeState(emptyEmployeeObject);
+    setGenID((prev) => prev + 1);
+    navigate('/employees');
   };
 
   const handleCancel = () => {
@@ -151,6 +182,7 @@ const CreateEmployeePage = () => {
                   showLabel={false}
                 />
               </div>
+              {showError && <div className='error-msg'>All fields must be filled</div>}
               <div className='form-buttons1'>
                 <div className='form-button'>
                   <Button type='primary' label='Create' onClick={handleCreate} />

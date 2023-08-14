@@ -15,10 +15,12 @@ const TableRow: React.FC<TableRowPropsType> = ({
   handleEdit,
   handleDelete
 }) => {
+  const employeeDataKeys = ['name', 'id', 'joiningDate', 'role', 'status', 'experience'];
+
   return (
     <tr className='table-row'>
-      {Object.keys(employee).map((item) => (
-        <td className='table-data' onClick={handleRowClick} key={`emp-id-${employee.id}`}>
+      {employeeDataKeys.map((item) => (
+        <td className='table-data' onClick={handleRowClick} key={`emp-id-${item}`}>
           {item === 'status' ? (
             <Status status={employee[item]} />
           ) : item === 'experience' ? (
@@ -30,8 +32,8 @@ const TableRow: React.FC<TableRowPropsType> = ({
       ))}
       <td className='table-data'>
         <div>
-          <img src='assets/icons/delete.png' alt='delete icon' onClick={handleDelete} />
-          <img src='assets/icons/edit.png' alt='edit icon' onClick={handleEdit} />
+          <img src='assets/icons/deleteIcon.svg' alt='delete icon' onClick={handleDelete} />
+          <img src='assets/icons/editIcon.svg' alt='edit icon' onClick={handleEdit} />
         </div>
       </td>
     </tr>

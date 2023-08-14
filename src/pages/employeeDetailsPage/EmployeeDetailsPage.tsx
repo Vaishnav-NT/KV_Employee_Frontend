@@ -1,14 +1,19 @@
 import './styles.css';
 import { useNavigate, useParams } from 'react-router-dom';
-import employees from '../../employees';
 import NavBar from '../../components/Navbar/NavBar';
 import Header from '../../components/Header/Header';
 import SubHeader from '../../components/Subheader/SubHeader';
 import Status from '../../components/Status/Status';
 import DetailsCard from '../../components/DetailsCard/DetailsCard';
+import { useSelector } from 'react-redux';
 
 const EmployeeDetailsPage = () => {
   const { id } = useParams();
+
+  const employees = useSelector((state: any) => {
+    return state.employees;
+  });
+
   const employee = employees.find((employee) => employee.id === parseInt(id));
   const navigate = useNavigate();
   const handleEdit = (id: number) => {
@@ -37,7 +42,10 @@ const EmployeeDetailsPage = () => {
             <DetailsCard label='Experience' content={employee.experience} />
             <DetailsCard label='Role' content={employee.role} />
             <DetailsCard label='Status' content={<Status status={employee.status} />} />
-            <DetailsCard label='Address' content='5th Avenue, Downtown' />
+            <DetailsCard
+              label='Address'
+              content={`${employee.address.house}, ${employee.address.line1}, ${employee.address.line2} `}
+            />
             <DetailsCard label='Employee ID' content={employee.id} />
           </div>
         </div>

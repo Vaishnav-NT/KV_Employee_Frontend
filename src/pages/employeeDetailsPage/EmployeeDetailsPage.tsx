@@ -1,10 +1,10 @@
 import './styles.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import employees from '../../employees';
-import NavBar from '../../components/navbar/NavBar';
-import Header from '../../components/header/Header';
-import SubHeader from '../../components/subheader/SubHeader';
-import Status from '../../components/status/Status';
+import NavBar from '../../components/Navbar/NavBar';
+import Header from '../../components/Header/Header';
+import SubHeader from '../../components/Subheader/SubHeader';
+import Status from '../../components/Status/Status';
 import DetailsCard from '../../components/DetailsCard/DetailsCard';
 
 const EmployeeDetailsPage = () => {

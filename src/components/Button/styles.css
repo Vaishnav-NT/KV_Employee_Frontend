@@ -9,6 +9,7 @@ button {
   border: none;
   box-shadow: 0px 3px 6px #b0e6fa;
   border-radius: 3px;
+  cursor: pointer;
 }
 
 .primary {

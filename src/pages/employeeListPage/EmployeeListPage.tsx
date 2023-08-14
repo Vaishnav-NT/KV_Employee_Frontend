@@ -1,11 +1,12 @@
 import './styles.css';
 import { useNavigate } from 'react-router-dom';
-import NavBar from '../../components/navbar/NavBar';
-import Header from '../../components/header/Header';
-import SubHeader from '../../components/subheader/SubHeader';
+import NavBar from '../../components/Navbar/NavBar';
+import Header from '../../components/Header/Header';
+import SubHeader from '../../components/Subheader/SubHeader';
 import TableHeader from '../../components/TableHeader/TableHeader';
 import TableRow from '../../components/TableRow/TableRow';
 import employees from '../../employees';
+import PopUp from '../../components/PopUp/PopUp';
 
 const EmployeeListPage = () => {
   const navigate = useNavigate();
@@ -48,6 +49,7 @@ const EmployeeListPage = () => {
               ))}
             </table>
           </div>
+          <PopUp />
         </div>
       </div>
     </div>

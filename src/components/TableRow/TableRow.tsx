@@ -1,6 +1,6 @@
 import './styles.css';
 import React from 'react';
-import Status from '../status/Status';
+import Status from '../Status/Status';
 
 type TableRowPropsType = {
   employee: any;

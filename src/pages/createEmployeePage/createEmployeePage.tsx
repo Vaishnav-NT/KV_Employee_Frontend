@@ -1,12 +1,12 @@
 import './styles.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import NavBar from '../../components/navbar/NavBar';
-import Header from '../../components/header/Header';
-import SubHeader from '../../components/subheader/SubHeader';
+import NavBar from '../../components/Navbar/NavBar';
+import Header from '../../components/Header/Header';
+import SubHeader from '../../components/Subheader/SubHeader';
 import FormInput from '../../components/FormInput/FormInput';
 import FormSelect from '../../components/FormSelect/FormSelect';
-import Button from '../../components/button/Button';
+import Button from '../../components/Button/Button';
 
 const CreateEmployeePage = () => {
   const deptOptions = ['Frontend', 'Backend', 'QA'];

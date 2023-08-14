@@ -1,8 +1,8 @@
 import './styles.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Input from '../../components/input/Input';
-import Button from '../../components/button/Button';
+import Input from '../../components/Input/Input';
+import Button from '../../components/Button/Button';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');

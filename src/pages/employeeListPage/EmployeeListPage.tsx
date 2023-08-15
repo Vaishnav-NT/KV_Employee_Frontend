@@ -2,9 +2,7 @@ import './styles.css';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import NavBar from '../../components/Navbar/NavBar';
-import Header from '../../components/Header/Header';
-import SubHeader from '../../components/Subheader/SubHeader';
+import HomeLayout from '../../layout/homeLayout/HomeLayout';
 import TableHeader from '../../components/TableHeader/TableHeader';
 import TableRow from '../../components/TableRow/TableRow';
 import PopUp from '../../components/PopUp/PopUp';
@@ -61,38 +59,31 @@ const EmployeeListPage = () => {
   };
 
   return (
-    <div className='home-div'>
-      <Header />
-      <div className='main-body'>
-        <NavBar />
-        <div className='content-div'>
-          <SubHeader
-            headerText='Employee List'
-            actionButtonText='Create Employee'
-            actionButtonlogo='assets/icons/create.png'
-            onClick={handleClickOnActionButton}
-          />
-          {showPopup && <PopUp handleCancel={handleCancel} handleConfirm={handleConfirm} />}
-          <div className='table'>
-            <table>
-              <TableHeader />
-              {employeesData.map((employee) => (
-                <TableRow
-                  employee={employee}
-                  key={employee.id}
-                  handleRowClick={() => handleClickOnTableRow(employee.id)}
-                  handleEdit={() => handleEdit(employee.id)}
-                  handleDelete={() => {
-                    handleShowPopup();
-                    setcurrentID(employee.id);
-                  }}
-                />
-              ))}
-            </table>
-          </div>
-        </div>
+    <HomeLayout
+      headerText='Employee List'
+      actionButtonText='Create Employee'
+      actionButtonlogo='assets/icons/create.png'
+      handleClickOnActionButton={handleClickOnActionButton}
+    >
+      {showPopup && <PopUp handleCancel={handleCancel} handleConfirm={handleConfirm} />}
+      <div className='table'>
+        <table>
+          <TableHeader />
+          {employeesData.map((employee) => (
+            <TableRow
+              employee={employee}
+              key={employee.id}
+              handleRowClick={() => handleClickOnTableRow(employee.id)}
+              handleEdit={() => handleEdit(employee.id)}
+              handleDelete={() => {
+                handleShowPopup();
+                setcurrentID(employee.id);
+              }}
+            />
+          ))}
+        </table>
       </div>
-    </div>
+    </HomeLayout>
   );
 };
 

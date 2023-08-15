@@ -1,13 +1,11 @@
 import './styles.css';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import NavBar from '../../components/Navbar/NavBar';
-import Header from '../../components/Header/Header';
-import SubHeader from '../../components/Subheader/SubHeader';
+import { useDispatch, useSelector } from 'react-redux';
+import HomeLayout from '../../layout/homeLayout/HomeLayout';
 import FormInput from '../../components/FormInput/FormInput';
 import FormSelect from '../../components/FormSelect/FormSelect';
 import Button from '../../components/Button/Button';
-import { useDispatch, useSelector } from 'react-redux';
 
 const EditEmployeePage = () => {
   const deptOptions = ['Frontend', 'Backend', 'QA'];
@@ -59,148 +57,141 @@ const EditEmployeePage = () => {
   };
 
   return (
-    <div className='home-div'>
-      <Header />
-      <div className='main-body'>
-        <NavBar />
-        <div className='content-div'>
-          <SubHeader headerText='Edit Employee' />
-          <div className='form-card'>
-            <div className='row'>
-              <div className='row-item'>
+    <HomeLayout headerText='Edit Employee'>
+      <div className='form-card'>
+        <div className='row'>
+          <div className='row-item'>
+            <FormInput
+              value={employeeState.name}
+              onChange={(e: any) => {
+                setEmployeeState((prev) => ({ ...prev, name: e.target.value }));
+              }}
+              label='Employee Name'
+              type='text'
+            />
+          </div>
+          <div className='row-item'>
+            <FormInput
+              value={employeeState.joiningDate}
+              onChange={(e: any) => {
+                setEmployeeState((prev) => ({ ...prev, joiningDate: e.target.value }));
+              }}
+              label='Joining Date'
+              type='string'
+            />
+          </div>
+          <div className='row-item'>
+            <FormInput
+              value={employeeState.experience as unknown as string}
+              onChange={(e: any) => {
+                setEmployeeState((prev) => ({ ...prev, experience: e.target.value }));
+              }}
+              label='Experience'
+              type='number'
+            />
+          </div>
+        </div>
+        <div className='row'>
+          <div className='row-item'>
+            <FormSelect
+              value={employeeState.department as unknown as string}
+              label='Department'
+              options={deptOptions}
+              onChange={(e: any) => {
+                setEmployeeState((prev) => ({ ...prev, department: e.target.value }));
+              }}
+            />
+          </div>
+          <div className='row-item'>
+            <FormSelect
+              value={employeeState.role as unknown as string}
+              label='Roles'
+              options={rolesOptions}
+              onChange={(e: any) => {
+                setEmployeeState((prev) => ({ ...prev, role: e.target.value }));
+              }}
+            />
+          </div>
+          <div className='row-item'>
+            <FormSelect
+              value={employeeState.status as unknown as string}
+              label='Status'
+              options={statusOptions}
+              onChange={(e: any) => {
+                setEmployeeState((prev) => ({ ...prev, status: e.target.value }));
+              }}
+            />
+          </div>
+        </div>
+        <div className='row'>
+          <div className='row-item'>
+            <div className='column'>
+              <div className='column-item'>
                 <FormInput
-                  value={employeeState.name}
+                  value={employeeState.address.house}
                   onChange={(e: any) => {
-                    setEmployeeState((prev) => ({ ...prev, name: e.target.value }));
+                    setEmployeeState((prev) => ({
+                      ...prev,
+                      address: { ...prev.address, house: e.target.value }
+                    }));
                   }}
-                  label='Employee Name'
+                  label='Address'
+                  placeholder='Flat No / House No'
                   type='text'
                 />
               </div>
-              <div className='row-item'>
+              <div className='column-item'>
                 <FormInput
-                  value={employeeState.joiningDate}
+                  value={employeeState.address.line1}
                   onChange={(e: any) => {
-                    setEmployeeState((prev) => ({ ...prev, joiningDate: e.target.value }));
+                    setEmployeeState((prev) => ({
+                      ...prev,
+                      address: { ...prev.address, line1: e.target.value }
+                    }));
                   }}
-                  label='Joining Date'
-                  type='string'
+                  label='Address Line 1'
+                  type='text'
+                  showLabel={false}
                 />
               </div>
-              <div className='row-item'>
+              <div className='column-item'>
                 <FormInput
-                  value={employeeState.experience as unknown as string}
+                  value={employeeState.address.line2}
                   onChange={(e: any) => {
-                    setEmployeeState((prev) => ({ ...prev, experience: e.target.value }));
+                    setEmployeeState((prev) => ({
+                      ...prev,
+                      address: { ...prev.address, line2: e.target.value }
+                    }));
                   }}
-                  label='Experience'
-                  type='number'
+                  label='Address Line 2'
+                  type='text'
+                  showLabel={false}
                 />
               </div>
             </div>
-            <div className='row'>
-              <div className='row-item'>
-                <FormSelect
-                  value={employeeState.department as unknown as string}
-                  label='Department'
-                  options={deptOptions}
-                  onChange={(e: any) => {
-                    setEmployeeState((prev) => ({ ...prev, department: e.target.value }));
-                  }}
-                />
-              </div>
-              <div className='row-item'>
-                <FormSelect
-                  value={employeeState.role as unknown as string}
-                  label='Roles'
-                  options={rolesOptions}
-                  onChange={(e: any) => {
-                    setEmployeeState((prev) => ({ ...prev, role: e.target.value }));
-                  }}
-                />
-              </div>
-              <div className='row-item'>
-                <FormSelect
-                  value={employeeState.status as unknown as string}
-                  label='Status'
-                  options={statusOptions}
-                  onChange={(e: any) => {
-                    setEmployeeState((prev) => ({ ...prev, status: e.target.value }));
-                  }}
-                />
-              </div>
+          </div>
+          <div className='row-item inactive'>
+            <FormInput
+              value={'E00' + employee.id}
+              label='Employee ID'
+              type='string'
+              onChange={() => {}}
+              readonly={true}
+            />
+          </div>
+        </div>
+        <div className='row'>
+          <div className='form-buttons'>
+            <div className='form-button'>
+              <Button type='primary' label='Save' onClick={handleSave} />
             </div>
-            <div className='row'>
-              <div className='row-item'>
-                <div className='column'>
-                  <div className='column-item'>
-                    <FormInput
-                      value={employeeState.address.house}
-                      onChange={(e: any) => {
-                        setEmployeeState((prev) => ({
-                          ...prev,
-                          address: { ...prev.address, house: e.target.value }
-                        }));
-                      }}
-                      label='Address'
-                      placeholder='Flat No / House No'
-                      type='text'
-                    />
-                  </div>
-                  <div className='column-item'>
-                    <FormInput
-                      value={employeeState.address.line1}
-                      onChange={(e: any) => {
-                        setEmployeeState((prev) => ({
-                          ...prev,
-                          address: { ...prev.address, line1: e.target.value }
-                        }));
-                      }}
-                      label='Address Line 1'
-                      type='text'
-                      showLabel={false}
-                    />
-                  </div>
-                  <div className='column-item'>
-                    <FormInput
-                      value={employeeState.address.line2}
-                      onChange={(e: any) => {
-                        setEmployeeState((prev) => ({
-                          ...prev,
-                          address: { ...prev.address, line2: e.target.value }
-                        }));
-                      }}
-                      label='Address Line 2'
-                      type='text'
-                      showLabel={false}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className='row-item inactive'>
-                <FormInput
-                  value={'E00' + employee.id}
-                  label='Employee ID'
-                  type='string'
-                  onChange={() => {}}
-                  readonly={true}
-                />
-              </div>
-            </div>
-            <div className='row'>
-              <div className='form-buttons'>
-                <div className='form-button'>
-                  <Button type='primary' label='Save' onClick={handleSave} />
-                </div>
-                <div className='form-button'>
-                  <Button type='secondary' label='Cancel' onClick={handleCancel} />
-                </div>
-              </div>
+            <div className='form-button'>
+              <Button type='secondary' label='Cancel' onClick={handleCancel} />
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </HomeLayout>
   );
 };
 

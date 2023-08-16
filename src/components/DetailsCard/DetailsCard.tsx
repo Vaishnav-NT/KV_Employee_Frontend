@@ -1,7 +1,7 @@
 import './styles.css';
 import React from 'react';
 
-type DetailsCardProsType = {
+export type DetailsCardProsType = {
   label: string;
   content: any;
 };
@@ -9,8 +9,12 @@ type DetailsCardProsType = {
 const DetailsCard: React.FC<DetailsCardProsType> = ({ label, content }) => {
   return (
     <div className='main-div'>
-      <div className='label-text'>{label}</div>
-      <div className='content'>{content}</div>
+      <div className='label-text' data-testid='detailsCard-label-test'>
+        {label}
+      </div>
+      <div className='content' data-testid='detailsCard-content-test'>
+        {content}
+      </div>
     </div>
   );
 };

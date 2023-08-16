@@ -1,7 +1,9 @@
 import './styles.css';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { editEmployee } from '../../actions/employeeActions';
+import { useGetEmployeeLIstQuery } from '../../services/employeeAPI';
 import HomeLayout from '../../layout/homeLayout/HomeLayout';
 import FormInput from '../../components/FormInput/FormInput';
 import FormSelect from '../../components/FormSelect/FormSelect';
@@ -13,9 +15,8 @@ const EditEmployeePage = () => {
   const statusOptions = ['Active', 'Inactive', 'Probation'];
   const { id } = useParams();
 
-  const employeesData = useSelector((state: any) => {
-    return state.employees;
-  });
+  const { data } = useGetEmployeeLIstQuery('');
+  const employeesData = data ? data.data : [];
 
   const employee = employeesData.find((employee) => employee.id === parseInt(id));
 
@@ -23,7 +24,7 @@ const EditEmployeePage = () => {
     id: parseInt(id),
     name: employee.name,
     joiningDate: employee.joiningDate,
-    role: employee.role,
+    role: employee.role.name,
     status: employee.status,
     experience: employee.experience,
     department: employee.department,
@@ -41,14 +42,7 @@ const EditEmployeePage = () => {
   const dispatch = useDispatch();
 
   const handleSave = () => {
-    dispatch({
-      type: 'EMPLOYEE.EDIT',
-      payload: {
-        employee: employeeState,
-        id
-      }
-    });
-    console.log('here');
+    dispatch(editEmployee({ ...employeeState }));
     navigate('/employees');
   };
 

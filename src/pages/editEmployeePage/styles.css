@@ -51,6 +51,7 @@
 .inactive input {
   color: #8b8d9d;
   background: #d1d1d1 0% 0% no-repeat padding-box;
+  cursor: not-allowed;
 }
 
 .form-buttons {

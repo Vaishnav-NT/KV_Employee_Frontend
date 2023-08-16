@@ -1,10 +1,10 @@
 import React from 'react';
 import './styles.css';
 
-type FormInputProsType = {
+export type FormInputProsType = {
   value: string;
   type: string;
-  onChange: (e: any) => void;
+  onChange?: (e: any) => void;
   label: string | null;
   placeholder?: string;
   showLabel?: boolean;
@@ -22,8 +22,9 @@ const FormInput: React.FC<FormInputProsType> = ({
 }) => {
   return (
     <div className='form-input-div'>
-      {showLabel && <label>{label}</label>}
+      {showLabel && <label data-testid='formInput-label-test'>{label}</label>}
       <input
+        data-testid='formInput-input-test'
         type={type}
         placeholder={placeholder}
         onChange={onChange}

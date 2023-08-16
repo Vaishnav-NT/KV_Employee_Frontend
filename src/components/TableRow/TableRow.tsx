@@ -15,19 +15,33 @@ const TableRow: React.FC<TableRowPropsType> = ({
   handleEdit,
   handleDelete
 }) => {
-  const employeeDataKeys = ['name', 'id', 'joiningDate', 'role', 'status', 'experience'];
+  // const employeeDataKeys = ['name', 'id', 'joiningDate', 'role', 'activityStatus', 'experience'];
+
+  const employeeObject = {
+    name: employee.name,
+    id: employee.id,
+    joiningDate: employee.joiningDate,
+    role: employee.role.name,
+    status: <Status status={employee.activityStatus} />,
+    experience: employee.experience + ' Years'
+  };
+
+  console.log(employee);
 
   return (
     <tr className='table-row'>
-      {employeeDataKeys.map((item) => (
-        <td className='table-data' onClick={handleRowClick} key={`emp-id-${item}`}>
-          {item === 'status' ? (
+      {Object.values(employeeObject).map((item) => (
+        <td className='table-data' onClick={handleRowClick} key={`emp-row-key-${item}`}>
+          {item}
+          {/* {item === 'activityStatus' ? (
             <Status status={employee[item]} />
           ) : item === 'experience' ? (
             `${employee[item]} Years`
+          ) : item === 'role' ? (
+            employee[item].name
           ) : (
             employee[item]
-          )}
+          )} */}
         </td>
       ))}
       <td className='table-data'>

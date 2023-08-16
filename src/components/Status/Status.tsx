@@ -1,7 +1,7 @@
 import './styles.css';
 import React from 'react';
 
-type StatusPropsType = {
+export type StatusPropsType = {
   status: string;
 };
 
@@ -13,7 +13,11 @@ const Status: React.FC<StatusPropsType> = ({ status }) => {
   };
 
   return (
-    <div style={{ backgroundColor: statusMap[status].color }} className='status'>
+    <div
+      style={{ backgroundColor: statusMap[status].color }}
+      className='status'
+      data-testid='status-test'
+    >
       {statusMap[status].label}
     </div>
   );

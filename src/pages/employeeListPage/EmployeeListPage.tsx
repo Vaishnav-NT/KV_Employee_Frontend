@@ -1,28 +1,23 @@
 import './styles.css';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { deleteEmployee } from '../../actions/employeeActions';
+import { useGetEmployeeLIstQuery } from '../../services/employeeAPI';
 import HomeLayout from '../../layout/homeLayout/HomeLayout';
+import PopUp from '../../components/PopUp/PopUp';
 import TableHeader from '../../components/TableHeader/TableHeader';
 import TableRow from '../../components/TableRow/TableRow';
-import PopUp from '../../components/PopUp/PopUp';
 
 const EmployeeListPage = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  //   dispatch({
-  //     type: 'EMPLOYEE.DELETE',
-  //     payload: {
-  //       id
-  //     }
-  //   });
-  //   navigate(`/employees`);
-  // };
 
-  const employeesData = useSelector((state: any) => {
-    return state.employees;
-  });
+  const { data } = useGetEmployeeLIstQuery('');
+  const employeesData = data ? data.data : [];
+
+  if (employeesData) console.log('', employeesData.data);
 
   const [showPopup, setShowPopup] = useState(false);
 
@@ -49,12 +44,7 @@ const EmployeeListPage = () => {
   };
 
   const handleConfirm = () => {
-    dispatch({
-      type: 'EMPLOYEE.DELETE',
-      payload: {
-        id: currentID
-      }
-    });
+    dispatch(deleteEmployee({ id: currentID }));
     handleCancel();
   };
 

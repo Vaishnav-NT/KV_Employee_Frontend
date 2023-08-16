@@ -18,8 +18,18 @@ const PopUp: React.FC<PopupPropsType> = ({ handleCancel, handleConfirm }) => {
         <div className='header2'>Do you really want to delete employee?</div>
         <br />
         <div className='popup-buttons'>
-          <Button type='primary' label='Confirm' onClick={handleConfirm} />
-          <Button type='secondary' label='Cancel' onClick={handleCancel} />
+          <Button
+            type='primary'
+            label='Confirm'
+            onClick={handleConfirm}
+            data-testid='popup-test1'
+          />
+          <Button
+            type='secondary'
+            label='Cancel'
+            onClick={handleCancel}
+            data-testid='popup-test2'
+          />
         </div>
       </div>
     </div>

@@ -1,14 +1,17 @@
 import './styles.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
+import { useLoginMutation } from '../../services/loginAPI';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showError, setShowError] = useState(false);
   const navigate = useNavigate();
+
+  const [login, { data, isSuccess }] = useLoginMutation();
 
   const handleUsernameChange = (e: any) => {
     setUsername(e.target.value);
@@ -19,9 +22,16 @@ const LoginPage = () => {
   };
 
   const onClickHandler = () => {
-    if (username.length > 0 && password.length > 0) navigate('/employees');
+    if (username.length > 0 && password.length > 0) login({ username, password });
     else setShowError(true);
   };
+
+  useEffect(() => {
+    if (data && isSuccess) {
+      localStorage.setItem('AuthToken', data.data.token);
+      navigate('/employees');
+    }
+  }, [data, isSuccess]);
 
   return (
     <div className='container'>

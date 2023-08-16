@@ -6,13 +6,13 @@ import HomeLayout from '../../layout/homeLayout/HomeLayout';
 import FormInput from '../../components/FormInput/FormInput';
 import FormSelect from '../../components/FormSelect/FormSelect';
 import Button from '../../components/Button/Button';
+import { addEmployee } from '../../actions/employeeActions';
 
 const CreateEmployeePage = () => {
   const [genID, setGenID] = useState(3);
   const deptOptions = ['Select', 'Frontend', 'Backend', 'QA'];
   const rolesOptions = ['Select', 'admin', 'user'];
   const statusOptions = ['Select', 'Active', 'Inactive', 'Probation'];
-  // const employeeDataKeys = ['name', 'id', 'joiningDate', 'experience'];
   const emptyEmployeeObject = {
     name: '',
     joiningDate: '',
@@ -53,12 +53,7 @@ const CreateEmployeePage = () => {
     //   }
     // }
 
-    dispatch({
-      type: 'EMPLOYEE.CREATE',
-      payload: {
-        employee: { id: genID, ...employeeState }
-      }
-    });
+    dispatch(addEmployee({ id: genID, ...employeeState }));
     setEmployeeState(emptyEmployeeObject);
     setGenID((prev) => prev + 1);
     navigate('/employees');

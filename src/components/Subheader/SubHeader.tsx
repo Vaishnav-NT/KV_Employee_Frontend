@@ -1,14 +1,14 @@
 import './styles.css';
 import React from 'react';
 
-type SubHeaderProsType = {
+export type SubHeaderPropsType = {
   headerText: string;
   actionButtonText?: string;
   actionButtonlogo?: string;
   onClick?: () => void;
 };
 
-const SubHeader: React.FC<SubHeaderProsType> = ({
+const SubHeader: React.FC<SubHeaderPropsType> = ({
   headerText,
   actionButtonText,
   actionButtonlogo,

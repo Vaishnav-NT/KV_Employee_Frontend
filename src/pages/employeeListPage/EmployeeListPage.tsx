@@ -1,9 +1,10 @@
 import './styles.css';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { deleteEmployee } from '../../actions/employeeActions';
-import { useGetEmployeeLIstQuery } from '../../services/employeeAPI';
+// import { useDispatch } from 'react-redux';
+// import { deleteEmployee } from '../../actions/employeeActions';
+import { useGetEmployeeListQuery } from '../../services/employeeAPI';
+import { useDeleteAnEmployeeMutation } from '../../services/employeeAPI';
 import HomeLayout from '../../layout/homeLayout/HomeLayout';
 import PopUp from '../../components/PopUp/PopUp';
 import TableHeader from '../../components/TableHeader/TableHeader';
@@ -12,10 +13,14 @@ import TableRow from '../../components/TableRow/TableRow';
 const EmployeeListPage = () => {
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const { data } = useGetEmployeeLIstQuery('');
+  const { data } = useGetEmployeeListQuery('');
   const employeesData = data ? data.data : [];
+
+  const [deleteEmloyee, { data: deleteRespone }] = useDeleteAnEmployeeMutation();
+
+  console.log('deleteRespone', deleteRespone);
 
   if (employeesData) console.log('', employeesData.data);
 
@@ -44,7 +49,7 @@ const EmployeeListPage = () => {
   };
 
   const handleConfirm = () => {
-    dispatch(deleteEmployee({ id: currentID }));
+    deleteEmloyee(currentID);
     handleCancel();
   };
 

@@ -1,15 +1,14 @@
 import './styles.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import HomeLayout from '../../layout/homeLayout/HomeLayout';
 import FormInput from '../../components/FormInput/FormInput';
 import FormSelect from '../../components/FormSelect/FormSelect';
 import Button from '../../components/Button/Button';
-import { addEmployee } from '../../actions/employeeActions';
+import createEmployeePayload from '../../utils/createEmployeePayload';
+import { useAddAnEmployeeMutation } from '../../services/employeeAPI';
 
 const CreateEmployeePage = () => {
-  const [genID, setGenID] = useState(3);
   const deptOptions = ['Select', 'Frontend', 'Backend', 'QA'];
   const rolesOptions = ['Select', 'admin', 'user'];
   const statusOptions = ['Select', 'Active', 'Inactive', 'Probation'];
@@ -17,18 +16,18 @@ const CreateEmployeePage = () => {
     name: '',
     joiningDate: '',
     role: '',
-    status: '',
+    activityStatus: '',
     experience: null,
     department: '',
     address: {
-      house: '',
-      line1: '',
-      line2: ''
+      addressLine1: '',
+      addressLine2: '',
+      city: ''
     }
   };
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
+  const [createEmployee, { data: employeeData }] = useAddAnEmployeeMutation();
 
   // const [showError, setShowError] = useState(false);
 
@@ -53,9 +52,9 @@ const CreateEmployeePage = () => {
     //   }
     // }
 
-    dispatch(addEmployee({ id: genID, ...employeeState }));
-    setEmployeeState(emptyEmployeeObject);
-    setGenID((prev) => prev + 1);
+    createEmployee(createEmployeePayload(employeeState));
+    console.log('Create', employeeData);
+    // setEmployeeState(emptyEmployeeObject);
     navigate('/employees');
   };
 
@@ -121,11 +120,11 @@ const CreateEmployeePage = () => {
           </div>
           <div className='row-item'>
             <FormSelect
-              value={employeeState.status}
+              value={employeeState.activityStatus}
               label='Status'
               options={statusOptions}
               onChange={(e: any) => {
-                setEmployeeState((prev) => ({ ...prev, status: e.target.value }));
+                setEmployeeState((prev) => ({ ...prev, activityStatus: e.target.value }));
               }}
             />
           </div>
@@ -133,42 +132,42 @@ const CreateEmployeePage = () => {
         <div className='column'>
           <div className='column-item1'>
             <FormInput
-              value={employeeState.address.house}
+              value={employeeState.address.addressLine1}
               onChange={(e: any) => {
                 setEmployeeState((prev) => ({
                   ...prev,
-                  address: { ...prev.address, house: e.target.value }
+                  address: { ...prev.address, addressLine1: e.target.value }
                 }));
               }}
               label='Address'
-              placeholder='Flat No / House No'
+              placeholder='Address line 1'
               type='text'
             />
           </div>
           <div className='column-item1'>
             <FormInput
-              value={employeeState.address.line1}
+              value={employeeState.address.addressLine2}
               onChange={(e: any) => {
                 setEmployeeState((prev) => ({
                   ...prev,
-                  address: { ...prev.address, line1: e.target.value }
+                  address: { ...prev.address, addressLine2: e.target.value }
                 }));
               }}
-              label='Address Line 1'
+              label='Address Line 2'
               type='text'
               showLabel={false}
             />
           </div>
           <div className='column-item1'>
             <FormInput
-              value={employeeState.address.line2}
+              value={employeeState.address.city}
               onChange={(e: any) => {
                 setEmployeeState((prev) => ({
                   ...prev,
-                  address: { ...prev.address, line2: e.target.value }
+                  address: { ...prev.address, city: e.target.value }
                 }));
               }}
-              label='Address Line 2'
+              label='City'
               type='text'
               showLabel={false}
             />

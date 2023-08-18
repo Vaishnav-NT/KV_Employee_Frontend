@@ -1,0 +1,10 @@
+.status {
+  width: 111px;
+  height: 30px;
+  border-radius: 30px;
+  text-align: center;
+  font: normal normal normal 16px/22px Nunito;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,14 @@
+.table-header {
+  margin-bottom: 12px;
+  background-color: #eaf9ff;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 58px;
+  border-radius: 5px;
+}
+
+.table-data {
+  flex: 13%;
+}

@@ -1,24 +1,41 @@
 import './styles.css';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
-// import { editEmployee } from '../../actions/employeeActions';
+import { useUpdateAnEmployeeMutation } from '../../services/employeeAPI';
+import { useGetDepartmentListQuery } from '../../services/departmentAPI';
+import { useGetRoleListQuery } from '../../services/roleAPI';
 import { useGetAnEmployeeQuery } from '../../services/employeeAPI';
+import Button from '../../components/Button/Button';
 import HomeLayout from '../../layout/homeLayout/HomeLayout';
 import FormInput from '../../components/FormInput/FormInput';
 import FormSelect from '../../components/FormSelect/FormSelect';
-import Button from '../../components/Button/Button';
-import { useUpdateAnEmployeeMutation } from '../../services/employeeAPI';
 import createEmployeePayload from '../../utils/createEmployeePayload';
 
 const EditEmployeePage = () => {
-  const deptOptions = ['Frontend', 'Backend', 'QA'];
-  const rolesOptions = ['admin', 'user'];
-  const statusOptions = ['Active', 'Inactive', 'Probation'];
+  const statusOptions = [
+    { id: 'Active', name: 'Active' },
+    { id: 'Inactive', name: 'Inactive' },
+    { id: 'Probation', name: 'Probation' }
+  ];
   const { id } = useParams();
+  const navigate = useNavigate();
 
-  const { data } = useGetAnEmployeeQuery(id);
-  const employee = data ? data.data : null;
+  const { data: employeeData } = useGetAnEmployeeQuery(id);
+  const employee = employeeData ? employeeData.data : null;
+
+  //add type
+  const { data: departmentData } = useGetDepartmentListQuery('');
+  const deptOptions = departmentData?.data.map((item) => {
+    return { id: item.id, name: item.name };
+  });
+
+  // add type
+  const { data: roleData } = useGetRoleListQuery('');
+  const rolesOptions = roleData?.data.map((item) => {
+    return { id: item, name: item };
+  });
+
+  const [updateEmployee, { data: response }] = useUpdateAnEmployeeMutation();
 
   const [employeeState, setEmployeeState] = useState({
     id: 0,
@@ -27,11 +44,14 @@ const EditEmployeePage = () => {
     role: '',
     activityStatus: '',
     experience: null,
-    department: '',
+    departmentId: '',
     address: {
       addressLine1: '',
       addressLine2: '',
-      city: ''
+      city: '',
+      state: '',
+      country: '',
+      pincode: ''
     }
   });
 
@@ -44,11 +64,14 @@ const EditEmployeePage = () => {
         role: employee.role.name,
         activityStatus: employee.activityStatus,
         experience: employee.experience,
-        department: 'Backend',
+        departmentId: employee.departmentId,
         address: {
           addressLine1: employee.address.addressLine1,
           addressLine2: employee.address.addressLine2,
-          city: employee.address.city
+          city: employee.address.city,
+          state: employee.address.state,
+          country: employee.address.country,
+          pincode: employee.address.pincode
         }
       };
 
@@ -56,17 +79,10 @@ const EditEmployeePage = () => {
     }
   }, [employee]);
 
-  const [updateEmployee, { data: response }] = useUpdateAnEmployeeMutation();
-
-  const navigate = useNavigate();
-
-  // const dispatch = useDispatch();
-
   const handleSave = () => {
-    // dispatch(editEmployee({ ...employeeState }));
     updateEmployee(createEmployeePayload(employeeState));
 
-    console.log('response', response);
+    console.log('updateResponse:', response);
 
     navigate('/employees');
   };
@@ -112,24 +128,28 @@ const EditEmployeePage = () => {
         </div>
         <div className='row'>
           <div className='row-item'>
-            <FormSelect
-              value={employeeState.department as unknown as string}
-              label='Department'
-              options={deptOptions}
-              onChange={(e: any) => {
-                setEmployeeState((prev) => ({ ...prev, department: e.target.value }));
-              }}
-            />
+            {deptOptions && (
+              <FormSelect
+                value={employeeState.departmentId as unknown as string}
+                label='Department'
+                options={deptOptions}
+                onChange={(e: any) => {
+                  setEmployeeState((prev) => ({ ...prev, departmentId: e.target.value }));
+                }}
+              />
+            )}
           </div>
           <div className='row-item'>
-            <FormSelect
-              value={employeeState.role as unknown as string}
-              label='Roles'
-              options={rolesOptions}
-              onChange={(e: any) => {
-                setEmployeeState((prev) => ({ ...prev, role: e.target.value }));
-              }}
-            />
+            {rolesOptions && (
+              <FormSelect
+                value={employeeState.role as unknown as string}
+                label='Roles'
+                options={rolesOptions}
+                onChange={(e: any) => {
+                  setEmployeeState((prev) => ({ ...prev, role: e.target.value }));
+                }}
+              />
+            )}
           </div>
           <div className='row-item'>
             <FormSelect
@@ -185,13 +205,52 @@ const EditEmployeePage = () => {
                     type='text'
                     showLabel={false}
                   />
+                  <FormInput
+                    value={employeeState.address.state}
+                    onChange={(e: any) => {
+                      setEmployeeState((prev) => ({
+                        ...prev,
+                        address: { ...prev.address, state: e.target.value }
+                      }));
+                    }}
+                    label='State'
+                    placeholder='State'
+                    type='text'
+                    showLabel={false}
+                  />
+                  <FormInput
+                    value={employeeState.address.country}
+                    onChange={(e: any) => {
+                      setEmployeeState((prev) => ({
+                        ...prev,
+                        address: { ...prev.address, country: e.target.value }
+                      }));
+                    }}
+                    label='Country'
+                    placeholder='Country'
+                    type='text'
+                    showLabel={false}
+                  />
+                  <FormInput
+                    value={employeeState.address.pincode}
+                    onChange={(e: any) => {
+                      setEmployeeState((prev) => ({
+                        ...prev,
+                        address: { ...prev.address, pincode: e.target.value }
+                      }));
+                    }}
+                    label='Pincode'
+                    placeholder='Pincode'
+                    type='text'
+                    showLabel={false}
+                  />
                 </div>
               </div>
             </div>
           </div>
           <div className='row-item inactive'>
             <FormInput
-              value={'E00' + employeeState.id}
+              value={'' + employeeState.id}
               label='Employee ID'
               type='string'
               onChange={() => {}}

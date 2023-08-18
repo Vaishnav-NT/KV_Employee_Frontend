@@ -46,14 +46,14 @@ describe('Test if the Input component works properly', () => {
     const onChange = jest.fn();
     const inputPros: InputProsType = {
       value: 'value',
-      onChange,
+      onChange: onChange,
       type: 'text',
       label: 'label'
     };
 
     render(<Input {...inputPros} />);
     const element = screen.getByTestId('input-test');
-    fireEvent.change(element);
+    fireEvent.change(element, { target: { value: 'change' } });
     expect(onChange).toBeCalled();
   });
 });

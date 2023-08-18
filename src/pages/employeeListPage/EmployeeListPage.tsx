@@ -1,8 +1,6 @@
 import './styles.css';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-// import { useDispatch } from 'react-redux';
-// import { deleteEmployee } from '../../actions/employeeActions';
 import { useGetEmployeeListQuery } from '../../services/employeeAPI';
 import { useDeleteAnEmployeeMutation } from '../../services/employeeAPI';
 import HomeLayout from '../../layout/homeLayout/HomeLayout';
@@ -13,16 +11,10 @@ import TableRow from '../../components/TableRow/TableRow';
 const EmployeeListPage = () => {
   const navigate = useNavigate();
 
-  // const dispatch = useDispatch();
-
   const { data } = useGetEmployeeListQuery('');
   const employeesData = data ? data.data : [];
 
   const [deleteEmloyee, { data: deleteRespone }] = useDeleteAnEmployeeMutation();
-
-  console.log('deleteRespone', deleteRespone);
-
-  if (employeesData) console.log('', employeesData.data);
 
   const [showPopup, setShowPopup] = useState(false);
 
@@ -50,6 +42,9 @@ const EmployeeListPage = () => {
 
   const handleConfirm = () => {
     deleteEmloyee(currentID);
+
+    console.log('deleteRespone', deleteRespone);
+
     handleCancel();
   };
 

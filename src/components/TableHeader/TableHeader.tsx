@@ -1,9 +1,6 @@
 import './styles.css';
 import React from 'react';
-
-// type TableHeaderPropsType = {
-//   status: string;
-// };
+// import { useGetCurrentUserQuery } from '../../services/userAPI';
 
 const TableHeader: React.FC = () => {
   const headerData = [
@@ -15,6 +12,10 @@ const TableHeader: React.FC = () => {
     'Experience',
     'Action'
   ];
+
+  // const { data } = useGetCurrentUserQuery('');
+
+  // if (data && data === 'admin') headerData.push('Action');
 
   return (
     <th className='table-header'>

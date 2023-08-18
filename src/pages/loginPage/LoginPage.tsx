@@ -1,9 +1,9 @@
 import './styles.css';
 import { useEffect, useState } from 'react';
+import { useLoginMutation } from '../../services/loginAPI';
 import { useNavigate } from 'react-router-dom';
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
-import { useLoginMutation } from '../../services/loginAPI';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -11,7 +11,7 @@ const LoginPage = () => {
   const [showError, setShowError] = useState(false);
   const navigate = useNavigate();
 
-  const [login, { data, isSuccess }] = useLoginMutation();
+  const [login, { data: loginData, isSuccess }] = useLoginMutation();
 
   const handleUsernameChange = (e: any) => {
     setUsername(e.target.value);
@@ -27,11 +27,14 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    if (data && isSuccess) {
-      localStorage.setItem('AuthToken', data.data.token);
+    if (isSuccess) {
+      localStorage.setItem('AuthToken', loginData.data.token);
+
+      console.log('dataaaa', loginData.data.employee);
+
       navigate('/employees');
     }
-  }, [data, isSuccess]);
+  }, [loginData, isSuccess]);
 
   return (
     <div className='container'>

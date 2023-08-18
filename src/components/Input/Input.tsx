@@ -18,7 +18,7 @@ const Input: React.FC<InputProsType> = ({ value, onChange, label, type }) => {
         onChange={onChange}
         value={value}
         data-testid='input-test'
-      ></input>
+      />
     </div>
   );
 };

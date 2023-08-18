@@ -98,21 +98,21 @@ describe('Test if the FormInput component works properly', () => {
   //   if (element) expect(element).toHaveAttribute('readOnly', true);
   // });
 
-  // test('If onChange gets triggered correctly', () => {
-  //   const onChange = jest.fn();
-  //   const formInputPros: FormInputProsType = {
-  //     value: 'value',
-  //     onChange,
-  //     type: 'text',
-  //     label: 'label',
-  //     placeholder: 'placeholder',
-  //     showLabel: true,
-  //     readonly: false
-  //   };
+  test('If onChange gets triggered correctly', () => {
+    const onChange = jest.fn();
+    const formInputPros: FormInputProsType = {
+      value: 'value',
+      onChange,
+      type: 'text',
+      label: 'label',
+      placeholder: 'placeholder',
+      showLabel: true,
+      readonly: false
+    };
 
-  //   render(<FormInput {...formInputPros} />);
-  //   const element = screen.getByTestId('formInput-input-test');
-  //   fireEvent.change(element);
-  //   expect(onChange).toBeCalled();
-  // });
+    render(<FormInput {...formInputPros} />);
+    const element = screen.getByTestId('formInput-input-test');
+    fireEvent.change(element, { target: { value: 'new value' } });
+    expect(onChange).toBeCalled();
+  });
 });

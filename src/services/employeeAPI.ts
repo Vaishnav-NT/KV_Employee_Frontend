@@ -1,4 +1,4 @@
-import baseAPI from '.';
+import baseAPI from './baseAPI';
 
 const employeeApi = baseAPI.injectEndpoints({
   endpoints: (builder) => ({

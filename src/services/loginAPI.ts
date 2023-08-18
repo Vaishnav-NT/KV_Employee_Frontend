@@ -1,4 +1,4 @@
-import baseAPI from '.';
+import baseAPI from './baseAPI';
 
 type loginPayloadType = {
   username: string;

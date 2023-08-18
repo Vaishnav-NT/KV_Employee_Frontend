@@ -3,13 +3,9 @@ const createEmployeePayload = (employee: any) => {
 
   return {
     ...employee,
-    departmentId: '9',
     username: employee.name,
     address: {
-      ...employee.address,
-      state: 'Kerala',
-      country: 'India',
-      pincode: '682024'
+      ...employee.address
     },
     password: 'password',
     experience: parseInt(employee.experience)

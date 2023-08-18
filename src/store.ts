@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import employeeReducer from './reducers/employeeReducer';
-import baseAPI from './services';
+import baseAPI from './services/baseAPI';
 
 const store = configureStore({
   reducer: {

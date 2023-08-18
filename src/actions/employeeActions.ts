@@ -25,4 +25,8 @@ const editEmployee = createAction<EmployeeType>('EMPLOYEE.EDIT');
 
 const deleteEmployee = createAction<DeleteEmployee>('EMPLOYEE.DELETE');
 
-export { addEmployee, editEmployee, deleteEmployee };
+const setCurrentUser = createAction<any>('EMPLOYEE.SET');
+
+export { addEmployee, editEmployee, deleteEmployee, setCurrentUser };
+
+// to be deleted

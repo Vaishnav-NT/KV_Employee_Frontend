@@ -2,7 +2,7 @@ import React from 'react';
 import './styles.css';
 
 export type FormSelectProsType = {
-  options: string[];
+  options: any[];
   onChange: (e: any) => void;
   label: string;
   value?: string;
@@ -18,9 +18,10 @@ const FormSelect: React.FC<FormSelectProsType> = ({ options, onChange, label, va
         value={value}
         data-testid='formSelect-select-test'
       >
+        <option value={-1}>Choose {label}</option>
         {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
+          <option key={option.id} value={option.id}>
+            {option.name}
           </option>
         ))}
       </select>

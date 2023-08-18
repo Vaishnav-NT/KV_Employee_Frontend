@@ -1,6 +1,5 @@
 import './styles.css';
 import { useNavigate, useParams } from 'react-router-dom';
-// import { useGetEmployeeListQuery } from '../../services/employeeAPI';
 import { useGetAnEmployeeQuery } from '../../services/employeeAPI';
 import HomeLayout from '../../layout/homeLayout/HomeLayout';
 import Status from '../../components/Status/Status';
@@ -8,16 +7,11 @@ import DetailsCard from '../../components/DetailsCard/DetailsCard';
 
 const EmployeeDetailsPage = () => {
   const { id } = useParams();
-  // const { data } = useGetEmployeeListQuery('');
-  // const employees = data ? data.data : [];
+  const navigate = useNavigate();
 
   const { data } = useGetAnEmployeeQuery(id);
   const employee = data ? data.data : null;
 
-  // console.log('', employee1);
-
-  // const employee = employees.find((employee) => employee.id === parseInt(id));
-  const navigate = useNavigate();
   const handleEdit = (id: number) => {
     navigate(`../employees/edit/${id}`);
   };
@@ -40,7 +34,7 @@ const EmployeeDetailsPage = () => {
           <DetailsCard label='Status' content={<Status status={employee.activityStatus} />} />
           <DetailsCard
             label='Address'
-            content={`${employee.address.addressLine1}, ${employee.address.addressLine2}, ${employee.address.city} `}
+            content={`${employee.address.addressLine1}, ${employee.address.addressLine2}, ${employee.address.city}, ${employee.address.state} ${employee.address.country} ${employee.address.pincode} `}
           />
           <DetailsCard label='Employee ID' content={employee.id} />
         </div>

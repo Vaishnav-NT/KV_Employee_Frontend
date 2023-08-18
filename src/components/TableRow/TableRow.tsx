@@ -1,6 +1,7 @@
 import './styles.css';
 import React from 'react';
 import Status from '../Status/Status';
+// import { useGetCurrentUserQuery } from '../../services/userAPI';
 
 type TableRowPropsType = {
   employee: any;
@@ -15,7 +16,7 @@ const TableRow: React.FC<TableRowPropsType> = ({
   handleEdit,
   handleDelete
 }) => {
-  // const employeeDataKeys = ['name', 'id', 'joiningDate', 'role', 'activityStatus', 'experience'];
+  // const { data } = useGetCurrentUserQuery('');
 
   const employeeObject = {
     name: employee.name,
@@ -26,30 +27,21 @@ const TableRow: React.FC<TableRowPropsType> = ({
     experience: employee.experience + ' Years'
   };
 
-  console.log(employee);
-
   return (
     <tr className='table-row'>
       {Object.values(employeeObject).map((item) => (
         <td className='table-data' onClick={handleRowClick} key={`emp-row-key-${item}`}>
           {item}
-          {/* {item === 'activityStatus' ? (
-            <Status status={employee[item]} />
-          ) : item === 'experience' ? (
-            `${employee[item]} Years`
-          ) : item === 'role' ? (
-            employee[item].name
-          ) : (
-            employee[item]
-          )} */}
         </td>
       ))}
-      <td className='table-data'>
-        <div>
-          <img src='assets/icons/deleteIcon.svg' alt='delete icon' onClick={handleDelete} />
-          <img src='assets/icons/editIcon.svg' alt='edit icon' onClick={handleEdit} />
-        </div>
-      </td>
+      {
+        <td className='table-data'>
+          <div>
+            <img src='assets/icons/deleteIcon.svg' alt='delete icon' onClick={handleDelete} />
+            <img src='assets/icons/editIcon.svg' alt='edit icon' onClick={handleEdit} />
+          </div>
+        </td>
+      }
     </tr>
   );
 };
